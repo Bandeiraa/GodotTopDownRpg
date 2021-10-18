@@ -4,6 +4,7 @@ var velocity: Vector2
 
 onready var texture: Sprite = get_node("Texture")
 onready var animation: AnimationPlayer = get_node("Animation")
+onready var weapon_spawner: Position2D = get_node("WeaponSpawner")
 
 export(String) var character
 export(int) var walk_speed
@@ -31,11 +32,14 @@ func get_mouse_position() -> void:
 	var player_position: Vector2 = global_position
 	var cursor: Vector2 = mouse_position - player_position
 	if cursor.x > 0:
+		weapon_spawner.attachment(Vector2(-2, 8), 180, false)
 		texture.flip_h = false
+		
 	elif cursor.x < 0:
+		weapon_spawner.attachment(Vector2(2, 8), 180, true)
 		texture.flip_h = true
-	
-	
+		
+		
 func move() -> Vector2:
 	var input_vector: Vector2 = Vector2.ZERO
 	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")

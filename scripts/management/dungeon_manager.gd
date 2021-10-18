@@ -8,11 +8,6 @@ func _ready() -> void:
 	connect_signals()
 	
 	
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_up"):
-		var _reload = get_tree().reload_current_scene()
-		
-		
 func connect_signals() -> void:
 	var _floor = floor_tile.connect("spawn_portal", self, "spawn_portal")
 	
