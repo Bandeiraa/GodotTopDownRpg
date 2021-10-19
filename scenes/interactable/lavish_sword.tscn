@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/interactable/collectable_template.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/weapons/weapon_lavish_sword.png" type="Texture" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 5.965
+height = 19.8497
+
+[node name="LavishSword" instance=ExtResource( 1 )]
+weapon_path = "res://scenes/weapon/lavish_sword.tscn"
+
+[node name="Collision" parent="." index="0"]
+shape = SubResource( 1 )
+
+[node name="Texture" parent="." index="1"]
+texture = ExtResource( 2 )

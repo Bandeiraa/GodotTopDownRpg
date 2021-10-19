@@ -14,9 +14,10 @@ func _ready() -> void:
 func attachment(weapon_position: Vector2,weapon_rotation: int, is_flipped: bool) -> void:
 	position = weapon_position
 	rotation_degrees = weapon_rotation
-	weapon.flip_h = is_flipped
-	
-	
+	if weapon != null:
+		weapon.flip_h = is_flipped
+		
+		
 func start_attack_timer() -> void:
 	timer.start()
 	can_attack = false

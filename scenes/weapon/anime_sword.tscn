@@ -7,9 +7,11 @@
 extents = Vector2( 3.39013, 10.8572 )
 
 [node name="AnimeSword" instance=ExtResource( 1 )]
+weapon_texture = "res://assets/weapons/weapon_anime_sword.png"
 lifetime = 0.8
 rotation_speed = 6
 speed = 3
+damage = 3
 
 [node name="Texture" parent="." index="0"]
 texture = ExtResource( 2 )

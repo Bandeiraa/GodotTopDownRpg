@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
-const WEAPON = preload("res://scenes/weapon/anime_sword.tscn")
-
+var current_weapon: String = ""
 var velocity: Vector2
 
 onready var texture: Sprite = get_node("Texture")
@@ -31,13 +30,13 @@ func animate() -> void:
 		
 		
 func attack() -> void:
-	if Input.is_action_just_pressed("Attack") and weapon_spawner.can_attack:
+	if Input.is_action_just_pressed("Attack") and weapon_spawner.can_attack and current_weapon != "":
 		weapon_spawner.start_attack_timer()
 		instance_weapon()
 		
 		
 func instance_weapon() -> void:
-	var weapon: Object = WEAPON.instance()
+	var weapon: Object = load(current_weapon).instance()
 	get_tree().root.call_deferred("add_child", weapon)
 	weapon.global_position = weapon_spawner.global_position
 	if (get_global_mouse_position() - global_position).x < 0:
