@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const WEAPON = preload("res://scenes/weapon/anime_sword.tscn")
+
 var velocity: Vector2
 
 onready var texture: Sprite = get_node("Texture")
@@ -15,6 +17,7 @@ func _ready() -> void:
 	
 func _physics_process(_delta: float) -> void:
 	animate()
+	attack()
 	get_mouse_position()
 	velocity = move() * walk_speed
 	velocity = move_and_slide(velocity)
@@ -27,6 +30,23 @@ func animate() -> void:
 		animation.play("Idle")
 		
 		
+func attack() -> void:
+	if Input.is_action_just_pressed("Attack") and weapon_spawner.can_attack:
+		weapon_spawner.start_attack_timer()
+		instance_weapon()
+		
+		
+func instance_weapon() -> void:
+	var weapon: Object = WEAPON.instance()
+	get_tree().root.call_deferred("add_child", weapon)
+	weapon.global_position = weapon_spawner.global_position
+	if (get_global_mouse_position() - global_position).x < 0:
+		weapon.scale.x = -1
+		weapon.rotation_speed = -weapon.rotation_speed
+		
+	weapon.direction = (get_global_mouse_position() - global_position).normalized()
+	
+	
 func get_mouse_position() -> void:
 	var mouse_position: Vector2 = get_global_mouse_position()
 	var player_position: Vector2 = global_position
