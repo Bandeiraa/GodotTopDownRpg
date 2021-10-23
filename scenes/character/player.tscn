@@ -1,14 +1,15 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/character/player.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/elf_f/elf_f_spritesheet.png" type="Texture" id=2]
 [ext_resource path="res://scripts/character/loot_area.gd" type="Script" id=3]
 [ext_resource path="res://scripts/character/weapon_spawner.gd" type="Script" id=4]
+[ext_resource path="res://scripts/character/stats.gd" type="Script" id=5]
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=2]
 resource_name = "Hit"
 length = 0.2
 step = 0.2
@@ -37,7 +38,7 @@ tracks/1/keys = {
 "values": [ 8 ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 resource_name = "Idle"
 length = 0.8
 loop = true
@@ -67,7 +68,7 @@ tracks/1/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 resource_name = "Run"
 length = 0.8
 loop = true
@@ -112,7 +113,7 @@ walk_speed = 100
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( -0.265167, 7.68979 )
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="Texture" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -120,9 +121,9 @@ hframes = 9
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
-anims/Hit = SubResource( 1 )
-anims/Idle = SubResource( 2 )
-anims/Run = SubResource( 3 )
+anims/Hit = SubResource( 2 )
+anims/Idle = SubResource( 3 )
+anims/Run = SubResource( 4 )
 
 [node name="Camera" type="Camera2D" parent="."]
 current = true
@@ -132,7 +133,7 @@ position = Vector2( -2, 8 )
 rotation = 3.14159
 z_index = -1
 script = ExtResource( 4 )
-attack_cooldown = 0.5
+attack_cooldown = 1.0
 
 [node name="Weapon" type="Sprite" parent="WeaponSpawner"]
 
@@ -146,5 +147,12 @@ script = ExtResource( 3 )
 [node name="Collision" type="CollisionShape2D" parent="LootArea"]
 position = Vector2( 0, 8 )
 shape = SubResource( 5 )
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource( 5 )
+strength = 5
+dextery = 3
+vitality = 7
+agility = 2
 
 [connection signal="timeout" from="WeaponSpawner/AttackCooldown" to="WeaponSpawner" method="on_attack_cooldown"]
