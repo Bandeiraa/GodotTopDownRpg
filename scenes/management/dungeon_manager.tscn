@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://resources/tile/floor_tile.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/management/dungeon_manager.gd" type="Script" id=2]
@@ -9,9 +9,12 @@
 [ext_resource path="res://scenes/character/player.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/interactable/anime_sword.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/interactable/lavish_sword.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/interface/interface.tscn" type="PackedScene" id=10]
 
 [node name="DungeonManager" type="Node2D"]
 script = ExtResource( 2 )
+
+[node name="Interface" parent="." instance=ExtResource( 10 )]
 
 [node name="Floor" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
