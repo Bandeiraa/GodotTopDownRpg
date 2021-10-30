@@ -1,14 +1,22 @@
 extends Node
 
 signal kill
+signal level_up
 
 export(int) var strength
 export(int) var dextery
 export(int) var vitality
 export(int) var agility
 
-var health: int = 5
-var max_health: int = health
+onready var parent: KinematicBody2D = get_parent()
+onready var health: int = vitality
+onready var max_health: int = health
+onready var stats: Dictionary = {
+	"str": strength,
+	"dex": dextery,
+	"vit": vitality,
+	"agi": agility
+}
 
 var current_exp: int = 0
 var current_level: int = 1
@@ -25,16 +33,14 @@ var exp_bar: Dictionary = {
 	10: 350,
 }
 
-onready var stats: Dictionary = {
-	"str": strength,
-	"dex": dextery,
-	"vit": vitality,
-	"agi": agility
-}
-
 func _ready() -> void:
 	get_tree().call_group("Exp", "level_exp", exp_bar[current_level], 0)
 	get_tree().call_group("Health", "health", health)
+		
+		
+func _process(_delta):
+	if Input.is_action_just_pressed("ui_up"):
+		on_level_up()
 		
 		
 func update_health(value: int) -> void:
@@ -55,17 +61,13 @@ func update_exp(value: int) -> void:
 		get_tree().call_group("Exp", "level_exp", exp_bar[current_level], 0)
 		get_tree().call_group("Exp", "update_exp", bonus_exp, "Exp")
 		on_level_up()
-	
-	
+		
+		
 func on_level_up() -> void:
 	randomize()
-	max_health += 5
-	get_tree().call_group("Health", "health", max_health)
 	for key in stats.keys():
 		stats[key] += randi() % 3 + 1
 		
-	print("Strength: " + str(stats.str))
-	print("Dextery: " + str(stats.dex))
-	print("Vitality: " + str(stats.vit))
-	print("Agility: " + str(stats.agi))
-	print("")
+	max_health = stats.vit
+	emit_signal("level_up", stats.str, stats.agi, stats.dex)
+	get_tree().call_group("Health", "health", max_health)

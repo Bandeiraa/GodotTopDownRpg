@@ -1,8 +1,13 @@
 extends KinematicBody2D
 
+const DEATH_FX = preload("res://scenes/effects/death_effect.tscn")
+
 var current_weapon: String = ""
+var base_speed: int
+var new_strength: int
 var velocity: Vector2
 
+onready var stats: Node = get_node("Stats")
 onready var texture: Sprite = get_node("Texture")
 onready var animation: AnimationPlayer = get_node("Animation")
 onready var weapon_spawner: Position2D = get_node("WeaponSpawner")
@@ -11,6 +16,9 @@ export(String) var character
 export(int) var walk_speed
 
 func _ready() -> void:
+	new_strength = stats.strength
+	base_speed = walk_speed
+	walk_speed += stats.agility
 	texture.texture = load(character)
 	
 	
@@ -37,6 +45,7 @@ func attack() -> void:
 		
 func instance_weapon() -> void:
 	var weapon: Object = load(current_weapon).instance()
+	weapon.update_damage(new_strength)
 	get_tree().root.call_deferred("add_child", weapon)
 	weapon.global_position = weapon_spawner.global_position
 	if (get_global_mouse_position() - global_position).x < 0:
@@ -65,3 +74,16 @@ func move() -> Vector2:
 	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	input_vector = input_vector.normalized()
 	return input_vector
+	
+	
+func on_level_up(strength: int, agility: int, dextery: int) -> void:
+	new_strength = strength
+	walk_speed = base_speed + agility
+	weapon_spawner.update_attack_cooldown(dextery)
+	
+	
+func kill():
+	var effect_to_instance: Object = DEATH_FX.instance()
+	get_tree().root.call_deferred("add_child", effect_to_instance)
+	effect_to_instance.global_position = global_position
+	queue_free()

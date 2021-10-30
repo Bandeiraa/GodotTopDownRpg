@@ -133,7 +133,7 @@ position = Vector2( -2, 8 )
 rotation = 3.14159
 z_index = -1
 script = ExtResource( 4 )
-attack_cooldown = 1.0
+attack_cooldown = 1.5
 
 [node name="Weapon" type="Sprite" parent="WeaponSpawner"]
 
@@ -156,3 +156,5 @@ vitality = 7
 agility = 2
 
 [connection signal="timeout" from="WeaponSpawner/AttackCooldown" to="WeaponSpawner" method="on_attack_cooldown"]
+[connection signal="kill" from="Stats" to="." method="kill"]
+[connection signal="level_up" from="Stats" to="." method="on_level_up"]
