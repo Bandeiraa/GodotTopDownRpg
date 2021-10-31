@@ -16,6 +16,7 @@ export(String) var character
 export(int) var walk_speed
 
 func _ready() -> void:
+	update_hud_stats()
 	new_strength = stats.strength
 	base_speed = walk_speed
 	walk_speed += stats.agility
@@ -80,6 +81,16 @@ func on_level_up(strength: int, agility: int, dextery: int) -> void:
 	new_strength = strength
 	walk_speed = base_speed + agility
 	weapon_spawner.update_attack_cooldown(dextery)
+	update_hud_stats()
+	
+	
+func update_hud_stats() -> void:
+	var index: int = 0
+	for stat in stats.stats.keys():
+		get_tree().call_group("StatsContainer", "update_interface", stat, stats.stats[stat], index)
+		index += 1
+		
+	get_tree().call_group("InfoContainer", "update_level", stats.current_level)
 	
 	
 func kill():

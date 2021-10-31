@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/interface/exp_bar.gd" type="Script" id=1]
+[ext_resource path="res://scripts/interface/health_bar.gd" type="Script" id=2]
+[ext_resource path="res://scenes/interface/health_bar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/interface/exp_bar.tscn" type="PackedScene" id=4]
+
+[node name="BarContainer" type="VBoxContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 39.0
+margin_bottom = 22.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar" type="Control" parent="." groups=[
+"Health",
+] instance=ExtResource( 3 )]
+margin_right = 39.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 39, 9 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ExpBar" type="Control" parent="." groups=[
+"Exp",
+] instance=ExtResource( 4 )]
+margin_top = 13.0
+margin_right = 39.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 39, 9 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}

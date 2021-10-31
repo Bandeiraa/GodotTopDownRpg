@@ -40,9 +40,9 @@ func _ready() -> void:
 		
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_up"):
-		on_level_up()
-		
-		
+		update_exp(5)
+	
+	
 func update_health(value: int) -> void:
 	health -= value
 	get_tree().call_group("Health", "update_health", value, "Damage")

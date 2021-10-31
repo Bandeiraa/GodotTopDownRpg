@@ -1,0 +1,190 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/interface/container.png" type="Texture" id=1]
+[ext_resource path="res://assets/interface/info_container.png" type="Texture" id=2]
+[ext_resource path="res://assets/interface/stats_container.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://scripts/interface/stats_container.gd" type="Script" id=5]
+[ext_resource path="res://scripts/interface/info_container.gd" type="Script" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 14
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 14
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 14
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 10
+font_data = ExtResource( 4 )
+
+[node name="Container" type="TextureRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -96.0
+margin_top = -48.0
+margin_right = 96.0
+margin_bottom = 48.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InfoContainer" type="TextureRect" parent="." groups=[
+"InfoContainer",
+]]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 82.0
+margin_bottom = 60.0
+texture = ExtResource( 2 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="InfoContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 8.0
+margin_right = -10.0
+margin_bottom = 17.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerName" type="Label" parent="InfoContainer/VBox"]
+margin_right = 62.0
+margin_bottom = 15.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.282353, 0.231373, 0.227451, 1 )
+text = "Shadowisko"
+align = 1
+valign = 1
+
+[node name="VBox" type="VBoxContainer" parent="InfoContainer/VBox"]
+margin_top = 19.0
+margin_right = 62.0
+margin_bottom = 50.0
+custom_constants/separation = 1
+
+[node name="ClassName" type="Label" parent="InfoContainer/VBox/VBox"]
+margin_right = 62.0
+margin_bottom = 15.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.282353, 0.231373, 0.227451, 1 )
+text = "Lizard"
+valign = 1
+
+[node name="HBox" type="HBoxContainer" parent="InfoContainer/VBox/VBox"]
+margin_top = 16.0
+margin_right = 62.0
+margin_bottom = 31.0
+
+[node name="Level" type="Label" parent="InfoContainer/VBox/VBox/HBox"]
+margin_right = 47.0
+margin_bottom = 15.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.282353, 0.231373, 0.227451, 1 )
+text = "Level: 78"
+valign = 1
+
+[node name="StatsContainer" type="TextureRect" parent="." groups=[
+"StatsContainer",
+]]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -88.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = 88.0
+texture = ExtResource( 3 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="StatsContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 8.0
+margin_right = -10.0
+margin_bottom = -8.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stats" type="Label" parent="StatsContainer/VBox"]
+margin_right = 60.0
+margin_bottom = 15.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.282353, 0.231373, 0.227451, 1 )
+text = "Stats"
+align = 1
+valign = 1
+
+[node name="VBox" type="VBoxContainer" parent="StatsContainer/VBox"]
+margin_top = 19.0
+margin_right = 60.0
+margin_bottom = 69.0
+custom_constants/separation = 2
+
+[node name="StrContainer" type="HBoxContainer" parent="StatsContainer/VBox/VBox"]
+margin_right = 60.0
+margin_bottom = 11.0
+
+[node name="Str" type="Label" parent="StatsContainer/VBox/VBox/StrContainer"]
+margin_right = 22.0
+margin_bottom = 11.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.282353, 0.231373, 0.227451, 1 )
+text = "Str 15"
+valign = 1
+
+[node name="DexContainer" type="HBoxContainer" parent="StatsContainer/VBox/VBox"]
+margin_top = 13.0
+margin_right = 60.0
+margin_bottom = 24.0
+
+[node name="Dex" type="Label" parent="StatsContainer/VBox/VBox/DexContainer"]
+margin_right = 25.0
+margin_bottom = 11.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.282353, 0.231373, 0.227451, 1 )
+text = "Dex 15"
+valign = 1
+
+[node name="VitContainer" type="HBoxContainer" parent="StatsContainer/VBox/VBox"]
+margin_top = 26.0
+margin_right = 60.0
+margin_bottom = 37.0
+
+[node name="Vit" type="Label" parent="StatsContainer/VBox/VBox/VitContainer"]
+margin_right = 24.0
+margin_bottom = 11.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.282353, 0.231373, 0.227451, 1 )
+text = "Vit 15"
+valign = 1
+
+[node name="AgiContainer" type="HBoxContainer" parent="StatsContainer/VBox/VBox"]
+margin_top = 39.0
+margin_right = 60.0
+margin_bottom = 50.0
+
+[node name="Agi" type="Label" parent="StatsContainer/VBox/VBox/AgiContainer"]
+margin_right = 25.0
+margin_bottom = 11.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.282353, 0.231373, 0.227451, 1 )
+text = "Agi 15"
+valign = 1
