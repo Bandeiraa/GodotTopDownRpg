@@ -34,6 +34,10 @@ var exp_bar: Dictionary = {
 }
 
 func _ready() -> void:
+	DataManagement.load_data()
+	current_exp = DataManagement.data_dictionary.current_exp
+	current_level = DataManagement.data_dictionary.current_level
+	get_tree().call_group("Exp", "update_exp", current_exp, "Exp")
 	get_tree().call_group("Exp", "level_exp", exp_bar[current_level], 0)
 	get_tree().call_group("Health", "health", health)
 		
@@ -41,8 +45,8 @@ func _ready() -> void:
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_up"):
 		update_exp(5)
-	
-	
+		
+		
 func update_health(value: int) -> void:
 	health -= value
 	get_tree().call_group("Health", "update_health", value, "Damage")
@@ -61,6 +65,10 @@ func update_exp(value: int) -> void:
 		get_tree().call_group("Exp", "level_exp", exp_bar[current_level], 0)
 		get_tree().call_group("Exp", "update_exp", bonus_exp, "Exp")
 		on_level_up()
+		
+	DataManagement.data_dictionary.current_exp = current_exp
+	DataManagement.data_dictionary.current_level = current_level
+	DataManagement.save_data()
 		
 		
 func on_level_up() -> void:

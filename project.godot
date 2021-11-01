@@ -11,8 +11,12 @@ config_version=4
 [application]
 
 config/name="TopDownRpg"
-run/main_scene="res://scenes/management/dungeon_manager.tscn"
+run/main_scene="res://scenes/management/initial_scene.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+DataManagement="*res://scripts/management/data_management.gd"
 
 [display]
 
