@@ -16,11 +16,13 @@ export(String) var character
 export(int) var walk_speed
 
 func _ready() -> void:
+	DataManagement.load_data()
+	texture.texture = load(DataManagement.data_dictionary.player_image_path)
+	
 	update_hud_stats()
-	new_strength = stats.strength
+	new_strength = stats.stats["Str"]
 	base_speed = walk_speed
-	walk_speed += stats.agility
-	texture.texture = load(character)
+	walk_speed += stats.stats["Agi"]
 	
 	
 func _physics_process(_delta: float) -> void:
@@ -90,6 +92,7 @@ func update_hud_stats() -> void:
 		get_tree().call_group("StatsContainer", "update_interface", stat, stats.stats[stat], index)
 		index += 1
 		
+	get_tree().call_group("InfoContainer", "update_class_name", DataManagement.data_dictionary.player_class)
 	get_tree().call_group("InfoContainer", "update_level", stats.current_level)
 	
 	

@@ -150,10 +150,6 @@ shape = SubResource( 5 )
 
 [node name="Stats" type="Node" parent="."]
 script = ExtResource( 5 )
-strength = 5
-dextery = 3
-vitality = 7
-agility = 2
 
 [connection signal="timeout" from="WeaponSpawner/AttackCooldown" to="WeaponSpawner" method="on_attack_cooldown"]
 [connection signal="kill" from="Stats" to="." method="kill"]

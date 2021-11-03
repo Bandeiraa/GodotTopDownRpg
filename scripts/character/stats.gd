@@ -3,19 +3,19 @@ extends Node
 signal kill
 signal level_up
 
-export(int) var strength
-export(int) var dextery
-export(int) var vitality
-export(int) var agility
+var strength: int
+var dextery: int
+var vitality: int
+var agility: int
 
 onready var parent: KinematicBody2D = get_parent()
 onready var health: int = vitality
 onready var max_health: int = health
 onready var stats: Dictionary = {
-	"str": strength,
-	"dex": dextery,
-	"vit": vitality,
-	"agi": agility
+	"Str": strength,
+	"Dex": dextery,
+	"Vit": vitality,
+	"Agi": agility
 }
 
 var current_exp: int = 0
@@ -35,6 +35,10 @@ var exp_bar: Dictionary = {
 
 func _ready() -> void:
 	DataManagement.load_data()
+	
+	for key in DataManagement.data_dictionary.stats_dict.keys():
+		stats[key] = DataManagement.data_dictionary.stats_dict[key]
+		
 	current_exp = DataManagement.data_dictionary.current_exp
 	current_level = DataManagement.data_dictionary.current_level
 	get_tree().call_group("Exp", "update_exp", current_exp, "Exp")
@@ -75,7 +79,10 @@ func on_level_up() -> void:
 	randomize()
 	for key in stats.keys():
 		stats[key] += randi() % 3 + 1
+		DataManagement.data_dictionary.stats_dict[key] = stats[key]
 		
-	max_health = stats.vit
-	emit_signal("level_up", stats.str, stats.agi, stats.dex)
+	DataManagement.save_data()
+	
+	max_health = stats.Vit
+	emit_signal("level_up", stats.Str, stats.Agi, stats.Dex)
 	get_tree().call_group("Health", "health", max_health)

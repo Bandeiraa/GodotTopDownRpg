@@ -11,6 +11,8 @@ var vitality: int = 0
 var agility: int = 0
 
 var current_game_level: String = "res://scenes/management/dungeon_manager.tscn"
+var player_image_path: String
+var player_class: String
 
 var stats_dictionary: Dictionary = {
 	"Str": strength,
@@ -23,7 +25,9 @@ var data_dictionary: Dictionary = {
 	"current_exp": current_exp,
 	"current_level": current_level,
 	"current_game_level": current_game_level,
-	"stats_dict": stats_dictionary
+	"stats_dict": stats_dictionary,
+	"player_image_path": player_image_path,
+	"player_class": player_class
 }
 
 func save_data() -> void:
